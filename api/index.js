@@ -42,7 +42,7 @@ api.put("/pet", (req,res) => {
 api.post("/pet", (req,res) => {
     if(!!req.body.link && !!req.body.story){
         if(!!req.files){
-            const path = `./images/${new Date().getTime()}.${req.files.image.name.split('.')[req.files.image.name.split('.').length - 1]}`
+            const path = `/images/${new Date().getTime()}.${req.files.image.name.split('.')[req.files.image.name.split('.').length - 1]}`
             req.files.image.mv(path,(err)=>{
                 if(err) return res.status(500).json({error: "Ошибка работы с файлами"})
                 db.run(`INSERT INTO pet ("name","image","city","link","story") VALUES ('${req.body.name ? req.body.name : ''}','${path}','${req.body.city ? req.body.city : ''}','${req.body.link ? req.body.link : ''}','${req.body.story ? req.body.story : ''}')`,(dberr,data) => {

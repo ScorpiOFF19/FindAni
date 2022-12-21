@@ -1,4 +1,4 @@
-const serverUrl = "http://localhost"
+const serverUrl = "http://109.68.212.59:3001"
 const insertPet = (name, city, story, link, image) => {
     if(document.getElementById ("pets")){
         document.getElementById ("pets").innerHTML += ` <li class="item">
