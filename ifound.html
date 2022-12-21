@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
     <title>FindAni</title>
 </head>
 <body>
@@ -28,10 +29,11 @@
     <div class="container">
         <form>
             <h1>Я нашёл животное</h1>
-            <input type="text" placeholder="Имя">
-            <input type="text" placeholder="Город">
-            <textarea placeholder="Краткая история нахождения животного"></textarea>
-            <input type="text" placeholder="Как мо мной связаться">
+            <input name="name" type="text" placeholder="Имя">
+            <input name="city" type="text" placeholder="Город">
+            <textarea name="story" placeholder="Краткая история нахождения животного"></textarea>
+            <input name="link" type="text" placeholder="Как мо мной связаться">
+            <input name="image" type="file" accept="image/png, image/jpeg, image/jpg">
             <button type="submit">Отправить</button>
         </form>
     </div>

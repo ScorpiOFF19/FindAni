@@ -1,34 +1,51 @@
-
+const serverUrl = "http://localhost"
 const insertPet = (name, city, story, link, image) => {
-    document.getElementById ("pets").innerHTML += ` <li class="item">
-                <img src="${image}">
-                <div>
+    if(document.getElementById ("pets")){
+        document.getElementById ("pets").innerHTML += ` <li class="item">
+                    <img src="${serverUrl}${image}">
                     <div>
-                        <h1>${city}</h1>
-                        <h2>${name.leight !=0 ? name : 'Не известно'}</h2>
+                        <div>
+                            <h1>${city}</h1>
+                            <h2>${name.length !=0 ? name : 'Не известно'}</h2>
+                        </div>
+                        <p>${story}</p>
+                        <a href="${link}">Связаться</a>
                     </div>
-                    <p>${story}</p>
-                    <a href="${link}">Связаться</a>
-                </div>
-            </li>`;
+                </li>`;
+    }
 }
-fetch('pets.json').then(res => res.json()).then(data => {
-    data.data.forEach(element => {
-        insertPet(element.name, element.city, element.story, element.link, element.image)
-    })
-})
-document.getElementById("search").addEventListener("input", (event) => {
-    // event.target.value
-    fetch('pets.json').then(res => res.json()).then(data => {
-         document.getElementById ("pets").innerHTML = ""
-        data.data.forEach(element => {
-            if (
-                element.name.toLowerCase().includes (event.target.value.toLowerCase()) ||
-                element.city.toLowerCase().includes (event.target.value.toLowerCase()) ||
-                element.story.toLowerCase().includes (event.target.value.toLowerCase()) ) {
-                insertPet(element.name, element.city, element.story, element.link, element.image)
-            }
-            
+if(document.getElementById ("pets")){
+    fetch(`${serverUrl}/pet`).then(res => res.json()).then(data => {
+        data.forEach(element => {
+            insertPet(element.name, element.city, element.story, element.link, element.image)
         })
     })
-})
+}
+if(document.getElementById("search")){
+    document.getElementById("search").addEventListener("input", (event) => {
+        fetch(`${serverUrl}/pet?search=${event.target.value}`).then(res => res.json()).then(data => {
+             document.getElementById ("pets").innerHTML = ""
+            data.forEach(element => {
+                insertPet(element.name, element.city, element.story, element.link, element.image)
+            })
+        })
+    })
+}
+if(document.querySelector("form")){
+    document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        fetch(`${serverUrl}/pet`,{
+            method: "POST",
+            body: formData
+        }).then(res => res.json())
+        .then(data => {
+            if(data.error){
+                alert(data.error)
+            }
+        }).catch(error => {
+            console.log(error);
+        })
+        event.preventDefault()
+    })
+}
