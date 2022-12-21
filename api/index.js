@@ -5,7 +5,7 @@ const cors = require("cors")
 const bodyParser = require("body-parser")
 const fileUpload = require("express-fileupload")
 const path = require("path")
-
+const port = process.env.PORT || 3001;
 api.use(fileUpload())
 api.use(bodyParser.json())
 api.use(cors())
@@ -61,6 +61,6 @@ api.post("/pet", (req,res) => {
     }
 })
 api.use('/images',express.static(path.join(__dirname, 'images')))
-api.listen(80,()=>{
+api.listen(port,()=>{
     console.log('server listening on port 80');
 })
