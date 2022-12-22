@@ -1,6 +1,6 @@
 const serverUrl = "http://109.68.212.59"
 const insertPet = (name, city, story, link, image) => {
-    if(document.getElementById ("pets")){
+    if (document.getElementById ("pets")) {
         document.getElementById ("pets").innerHTML += ` <li class="item">
                     <img src="${serverUrl}${image}">
                     <div>
@@ -14,19 +14,19 @@ const insertPet = (name, city, story, link, image) => {
                 </li>`;
     }
 }
-if(document.getElementById ("pets")){
-    fetch(`${serverUrl}/pet`).then(res => res.json()).then(data => {
-        data.forEach(element => {
-            insertPet(element.name, element.city, element.story, element.link, element.image)
+if (document.getElementById ("pets")) {
+    fetch (`${serverUrl}/pet`).then (res => res.json()).then (data => {
+        data.forEach (element => {
+            insertPet (element.name, element.city, element.story, element.link, element.image)
         })
     })
 }
-if(document.getElementById("search")){
-    document.getElementById("search").addEventListener("input", (event) => {
-        fetch(`${serverUrl}/pet?search=${event.target.value}`).then(res => res.json()).then(data => {
+if (document.getElementById("search")) {
+    document.getElementById ("search").addEventListener ("input", (event) => {
+        fetch (`${serverUrl}/pet?search=${event.target.value}`).then(res => res.json()).then (data => {
              document.getElementById ("pets").innerHTML = ""
-            data.forEach(element => {
-                insertPet(element.name, element.city, element.story, element.link, element.image)
+            data.forEach (element => {
+                insertPet (element.name, element.city, element.story, element.link, element.image)
             })
         })
     })
